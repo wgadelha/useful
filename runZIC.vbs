@@ -4,10 +4,12 @@
 '#  AUTHOR.........:  Walter Gadelha
 '#  VERSION........:  0.1alpha
 '#  CREATED........:  17/12/2020
-'#  REQUIREMENTS...:  
-'#  DESCRIPTION....:  Opens ZIC URL after disabling IE Automatic configuration script
+'#  REQUIREMENTS...:  Windows 7 / 10
+'#  DESCRIPTION....:  Opens an URL after disabling IE Automatic configuration script
 '#
-'#  NOTES..........:  
+'#  NOTES..........:  Script based on Enable Disable IE Proxy by Stuart Barret
+'#                    Usage of MsgBox for fast deployment
+'#                    IP addresses changed for privacy reasons
 '#
 '#==============================================================================
 '#==============================================================================
@@ -47,9 +49,12 @@ objReg.GetBinaryValue HKEY_CURRENT_USER,strKeyPath,strValueName,bValue
 '#	
 '#  If the user does not want to open ZIC, it can click NO to enable
 '#  IE Automatic configuration script, or CANCEL to quit the script without
-'#  changes to the IE configuration
+'#  any changes to the IE configuration
 '#  
 '#==============================================================================
+
+strR6Addr = "http://a.b.c.d:8080/index.php"
+strR5Addr = "http://a.b.c.d:8080//"
 
 IEPrompt = MsgBox ("Do you want to open ZIC R6 or R5?"  & vbCrLf & vbCrLf & "Yes will DISABLE IE Automatic configuration script."  & vbCrLf & "No will ENABLE IE Automatic configuration script.",vbQuestion+vbYesNoCancel+vbDefaultButton1, "Run ZIC")
 
@@ -59,10 +64,10 @@ If IEPrompt = vbYes Then
 
 	ZICPrompt = MsgBox ("Do you want to open R6?" & vbCrLf & vbCrLf & "Yes for R6." & vbCrLf & "No for R5.", vbQuestion+vbYesNoCancel+vbDefaultButton1, "Run ZIC")
 	If ZICPrompt = vbYes Then
-		objShell.Run "http://192.168.254.253:8080/zic_jnlp.php"
+		objShell.Run strR6Addr
 		
 		ElseIf ZICPrompt = vbNo Then
-		objShell.Run "http://192.168.254.253:8080//"
+		objShell.Run strR5Addr
 	End If
 
 	ElseIf IEPrompt = vbNo Then
